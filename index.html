@@ -1,101 +1,4622 @@
-html = r'''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ElectroMart — Electrical Store</title>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color"
+content="#0f172a">
+
+<title>
+ElectroMart | Electrical Store
+</title>
+
 <style>
-:root{--bg:#f5f7fb;--card:#fff;--text:#142033;--muted:#687386;--line:#e7ebf2;--accent:#2563eb;--danger:#dc2626;--warn:#d97706;--success:#059669;--shadow:0 12px 30px rgba(20,32,51,.07)}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
-.app{display:flex;min-height:100vh}.sidebar{width:250px;background:#101828;color:#fff;padding:22px 16px;position:sticky;top:0;height:100vh}.brand{display:flex;align-items:center;gap:12px;padding:8px 10px 24px}.brand-icon{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#3b82f6,#60a5fa);display:grid;place-items:center;font-size:22px}.brand h1{font-size:18px;margin:0}.brand small{color:#aab4c5;font-size:11px}
-nav{display:grid;gap:6px}.nav{border:0;background:transparent;color:#bdc7d7;text-align:left;padding:12px;border-radius:10px;cursor:pointer;font-size:14px;display:flex;align-items:center;gap:11px}.nav:hover,.nav.active{background:#1d2939;color:#fff}.nav.active{box-shadow:inset 3px 0 0 #60a5fa}
-.main{flex:1;min-width:0}.topbar{height:72px;background:rgba(255,255,255,.92);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:10;backdrop-filter:blur(12px)}.menu-btn{display:none;border:0;background:transparent;font-size:24px}.top-title h2{margin:0;font-size:20px}.top-title span{font-size:12px;color:var(--muted)}.user{display:flex;align-items:center;gap:10px}.avatar{width:36px;height:36px;background:#e8eefc;color:#1d4ed8;border-radius:50%;display:grid;place-items:center;font-weight:700}
-.content{padding:28px}.hero{background:linear-gradient(135deg,#0f172a,#1d4ed8);color:#fff;border-radius:18px;padding:26px;display:flex;justify-content:space-between;align-items:center;gap:20px;box-shadow:var(--shadow)}.hero h3{font-size:25px;margin:0 0 7px}.hero p{margin:0;color:#dbeafe;font-size:13px}.hero-actions{display:flex;gap:10px}.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:600;cursor:pointer}.btn.primary{background:#fff;color:#1d4ed8}.btn.secondary{background:rgba(255,255,255,.13);color:#fff;border:1px solid rgba(255,255,255,.2)}
-.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:20px 0}.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}.kpi-top{display:flex;justify-content:space-between;align-items:center}.kpi-label{font-size:12px;color:var(--muted)}.kpi-icon{width:36px;height:36px;border-radius:10px;background:#eef4ff;display:grid;place-items:center}.kpi strong{display:block;font-size:24px;margin-top:9px}.kpi small{color:var(--success);font-size:11px}.kpi small.warn{color:var(--warn)}
-.grid{display:grid;grid-template-columns:1.45fr .9fr;gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}.card-head{padding:17px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.card-head h4{margin:0;font-size:15px}.card-head a{font-size:12px;color:var(--accent);text-decoration:none;font-weight:600}.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:620px}.table th,.table td{padding:13px 16px;border-bottom:1px solid #eef1f5;text-align:left;font-size:12px}.table th{color:var(--muted);font-weight:600;background:#fafbfc}.tag{display:inline-flex;padding:5px 8px;border-radius:999px;font-size:10px;font-weight:700}.tag.success{background:#e9f8f2;color:var(--success)}.tag.warn{background:#fff6e6;color:var(--warn)}.tag.danger{background:#ffeded;color:var(--danger)}
-.quick{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:17px}.quick button{padding:15px 12px;border:1px solid var(--line);background:#fafbfc;border-radius:12px;text-align:left;cursor:pointer}.quick button:hover{border-color:#bfd0ff;background:#f7f9ff}.quick b{display:block;font-size:12px}.quick span{font-size:10px;color:var(--muted)}
-.low-list{padding:5px 17px 16px}.low{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid #eef1f5}.low:last-child{border-bottom:0}.low .name{font-size:12px;font-weight:600}.low small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
-.mobile-nav{display:none}
-@media(max-width:1000px){.sidebar{width:220px}.kpis{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
-@media(max-width:720px){.sidebar{display:none;position:fixed;left:0;top:0;z-index:30;width:250px}.sidebar.open{display:block}.menu-btn{display:block}.topbar{padding:0 16px}.content{padding:16px}.hero{padding:20px;align-items:flex-start;flex-direction:column}.hero h3{font-size:21px}.kpis{grid-template-columns:1fr 1fr;gap:10px}.kpi{padding:14px}.kpi strong{font-size:20px}.mobile-nav{position:fixed;display:flex;left:0;right:0;bottom:0;height:62px;background:#fff;border-top:1px solid var(--line);z-index:20;justify-content:space-around}.mobile-nav button{border:0;background:#fff;color:var(--muted);font-size:10px;display:grid;place-items:center;gap:3px}.mobile-nav button.active{color:var(--accent);font-weight:700}.main{padding-bottom:62px}}
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+body{
+font-family:
+Inter,
+system-ui,
+-apple-system,
+Segoe UI,
+Roboto,
+Arial,
+sans-serif;
+
+background:#eef3f9;
+color:#0f172a;
+
+overflow-x:hidden;
+}
+
+button,
+input,
+select{
+font:inherit;
+}
+
+button{
+cursor:pointer;
+}
+
+/* =========================
+   ANIMATED BACKGROUND
+========================= */
+
+.bg-grid{
+
+position:fixed;
+inset:0;
+
+z-index:-5;
+
+background-image:
+
+linear-gradient(
+rgba(148,163,184,.09) 1px,
+transparent 1px
+),
+
+linear-gradient(
+90deg,
+rgba(148,163,184,.09) 1px,
+transparent 1px
+);
+
+background-size:32px 32px;
+
+mask-image:
+linear-gradient(
+to bottom,
+black,
+transparent 90%
+);
+
+}
+
+.orb{
+
+position:fixed;
+
+border-radius:50%;
+
+filter:blur(75px);
+
+opacity:.35;
+
+z-index:-4;
+
+pointer-events:none;
+
+}
+
+.orb.one{
+
+width:350px;
+height:350px;
+
+background:#60a5fa;
+
+right:5%;
+top:-100px;
+
+animation:
+floatOne 13s ease-in-out infinite;
+
+}
+
+.orb.two{
+
+width:300px;
+height:300px;
+
+background:#a78bfa;
+
+left:15%;
+bottom:-80px;
+
+animation:
+floatTwo 16s ease-in-out infinite;
+
+}
+
+.orb.three{
+
+width:230px;
+height:230px;
+
+background:#34d399;
+
+left:42%;
+top:38%;
+
+animation:
+floatThree 14s ease-in-out infinite;
+
+}
+
+@keyframes floatOne{
+
+50%{
+
+transform:
+translate(-35px,45px)
+scale(1.08);
+
+}
+
+}
+
+@keyframes floatTwo{
+
+50%{
+
+transform:
+translate(45px,-25px)
+scale(1.12);
+
+}
+
+}
+
+@keyframes floatThree{
+
+50%{
+
+transform:
+translate(25px,30px)
+scale(.92);
+
+}
+
+}
+
+/* =========================
+   APP
+========================= */
+
+.app{
+
+min-height:100vh;
+
+display:flex;
+
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+
+width:260px;
+
+min-width:260px;
+
+position:fixed;
+
+left:0;
+top:0;
+bottom:0;
+
+background:
+linear-gradient(
+180deg,
+#0b1220,
+#111827 70%,
+#0f172a
+);
+
+color:white;
+
+padding:18px 14px;
+
+z-index:50;
+
+box-shadow:
+20px 0 50px
+rgba(15,23,42,.15);
+
+overflow:auto;
+
+}
+
+.brand{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+padding:
+10px 10px 24px;
+
+}
+
+.brand-icon{
+
+width:46px;
+
+height:46px;
+
+border-radius:14px;
+
+display:grid;
+
+place-items:center;
+
+font-size:24px;
+
+background:
+linear-gradient(
+135deg,
+#2563eb,
+#60a5fa
+);
+
+box-shadow:
+0 12px 28px
+rgba(37,99,235,.35);
+
+}
+
+.brand h1{
+
+font-size:18px;
+
+}
+
+.brand small{
+
+display:block;
+
+font-size:11px;
+
+color:#94a3b8;
+
+}
+
+.nav{
+
+display:grid;
+
+gap:6px;
+
+}
+
+.nav button{
+
+width:100%;
+
+border:1px solid transparent;
+
+background:transparent;
+
+color:#b9c4d4;
+
+padding:12px 13px;
+
+border-radius:11px;
+
+text-align:left;
+
+display:flex;
+
+align-items:center;
+
+gap:11px;
+
+transition:.22s;
+
+}
+
+.nav button:hover{
+
+background:
+rgba(255,255,255,.07);
+
+color:white;
+
+transform:
+translateX(4px);
+
+}
+
+.nav button.active{
+
+background:
+linear-gradient(
+90deg,
+rgba(59,130,246,.25),
+rgba(59,130,246,.08)
+);
+
+color:white;
+
+border-color:
+rgba(96,165,250,.2);
+
+box-shadow:
+inset 3px 0 #60a5fa;
+
+}
+
+.nav-icon{
+
+width:20px;
+
+text-align:center;
+
+}
+
+.sidebar-footer{
+
+margin-top:25px;
+
+padding:13px;
+
+border-radius:13px;
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+}
+
+.sidebar-footer b{
+
+font-size:11px;
+
+}
+
+.sidebar-footer span{
+
+display:block;
+
+font-size:10px;
+
+color:#94a3b8;
+
+margin-top:4px;
+
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+
+margin-left:260px;
+
+width:
+calc(100% - 260px);
+
+min-width:0;
+
+}
+
+/* =========================
+   TOPBAR
+========================= */
+
+.topbar{
+
+height:74px;
+
+background:
+rgba(255,255,255,.84);
+
+backdrop-filter:
+blur(18px);
+
+border-bottom:
+1px solid #e2e8f0;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+padding:
+0 28px;
+
+position:sticky;
+
+top:0;
+
+z-index:40;
+
+}
+
+.top-left{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+}
+
+.menu-btn{
+
+display:none;
+
+border:
+1px solid #e2e8f0;
+
+background:white;
+
+width:40px;
+
+height:40px;
+
+border-radius:10px;
+
+font-size:20px;
+
+}
+
+.title h2{
+
+font-size:20px;
+
+}
+
+.title p{
+
+margin-top:3px;
+
+font-size:11px;
+
+color:#64748b;
+
+}
+
+.user{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+}
+
+.user-meta{
+
+text-align:right;
+
+}
+
+.user-meta b{
+
+font-size:12px;
+
+}
+
+.user-meta span{
+
+display:block;
+
+font-size:10px;
+
+color:#64748b;
+
+}
+
+.avatar{
+
+width:38px;
+
+height:38px;
+
+border-radius:50%;
+
+display:grid;
+
+place-items:center;
+
+font-weight:800;
+
+color:#1d4ed8;
+
+background:#e8efff;
+
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+
+padding:26px;
+
+max-width:1550px;
+
+margin:auto;
+
+}
+
+/* =========================
+   PAGE SYSTEM
+========================= */
+
+.page{
+
+display:none;
+
+animation:
+pageIn .3s ease;
+
+}
+
+.page.show{
+
+display:block;
+
+}
+
+@keyframes pageIn{
+
+from{
+
+opacity:0;
+
+transform:
+translateY(8px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:none;
+
+}
+
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+
+position:relative;
+
+overflow:hidden;
+
+background:
+linear-gradient(
+135deg,
+#0b1530,
+#17346e,
+#2563eb
+);
+
+color:white;
+
+border-radius:22px;
+
+padding:28px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+gap:20px;
+
+box-shadow:
+0 20px 50px
+rgba(30,64,175,.22);
+
+}
+
+.hero:after{
+
+content:"";
+
+position:absolute;
+
+width:300px;
+height:300px;
+
+border-radius:50%;
+
+right:-120px;
+top:-150px;
+
+background:
+rgba(255,255,255,.08);
+
+}
+
+.hero h1{
+
+font-size:28px;
+
+margin-bottom:7px;
+
+}
+
+.hero p{
+
+font-size:13px;
+
+color:#dbeafe;
+
+}
+
+.hero-actions{
+
+display:flex;
+
+gap:9px;
+
+position:relative;
+
+z-index:2;
+
+}
+
+.btn{
+
+border:0;
+
+padding:11px 15px;
+
+border-radius:10px;
+
+font-weight:700;
+
+transition:.2s;
+
+}
+
+.btn:hover{
+
+transform:
+translateY(-2px);
+
+box-shadow:
+0 10px 22px
+rgba(15,23,42,.18);
+
+}
+
+.btn-primary{
+
+background:white;
+
+color:#1d4ed8;
+
+}
+
+.btn-dark{
+
+background:
+rgba(255,255,255,.1);
+
+color:white;
+
+border:
+1px solid rgba(255,255,255,.2);
+
+}
+
+/* =========================
+   KPI CARDS
+========================= */
+
+.kpis{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:16px;
+
+margin:20px 0;
+
+}
+
+.kpi{
+
+background:
+rgba(255,255,255,.88);
+
+border:
+1px solid #e2e8f0;
+
+border-radius:17px;
+
+padding:18px;
+
+box-shadow:
+0 16px 40px
+rgba(15,23,42,.07);
+
+backdrop-filter:
+blur(12px);
+
+transition:.25s;
+
+}
+
+.kpi:hover{
+
+transform:
+translateY(-6px);
+
+box-shadow:
+0 22px 45px
+rgba(15,23,42,.13);
+
+border-color:#c7d5eb;
+
+}
+
+.kpi-top{
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+}
+
+.kpi-label{
+
+font-size:12px;
+
+color:#64748b;
+
+}
+
+.kpi-icon{
+
+width:39px;
+
+height:39px;
+
+display:grid;
+
+place-items:center;
+
+background:#eef4ff;
+
+border-radius:11px;
+
+}
+
+.kpi strong{
+
+display:block;
+
+font-size:25px;
+
+margin:9px 0 4px;
+
+}
+
+.green{
+
+color:#059669;
+
+}
+
+.orange{
+
+color:#d97706;
+
+}
+
+.red{
+
+color:#dc2626;
+
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+
+background:
+rgba(255,255,255,.88);
+
+border:
+1px solid #e2e8f0;
+
+border-radius:17px;
+
+box-shadow:
+0 16px 40px
+rgba(15,23,42,.07);
+
+overflow:hidden;
+
+backdrop-filter:
+blur(12px);
+
+transition:.25s;
+
+}
+
+.card:hover{
+
+box-shadow:
+0 22px 45px
+rgba(15,23,42,.11);
+
+}
+
+.card-head{
+
+padding:
+17px 18px;
+
+border-bottom:
+1px solid #edf1f6;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.card-head h3{
+
+font-size:15px;
+
+}
+
+.card-head a{
+
+font-size:11px;
+
+color:#2563eb;
+
+text-decoration:none;
+
+font-weight:700;
+
+}
+
+/* =========================
+   DASHBOARD GRID
+========================= */
+
+.section-grid{
+
+display:grid;
+
+grid-template-columns:
+1.45fr .9fr;
+
+gap:18px;
+
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrap{
+
+overflow:auto;
+
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+min-width:650px;
+
+}
+
+th,
+td{
+
+padding:
+13px 15px;
+
+border-bottom:
+1px solid #edf1f6;
+
+text-align:left;
+
+font-size:12px;
+
+}
+
+th{
+
+background:#f8fafc;
+
+color:#64748b;
+
+}
+
+tbody tr{
+
+transition:.18s;
+
+}
+
+tbody tr:hover{
+
+background:#f8fbff;
+
+transform:
+scale(1.002);
+
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.status{
+
+display:inline-flex;
+
+padding:
+5px 8px;
+
+border-radius:999px;
+
+font-size:10px;
+
+font-weight:800;
+
+}
+
+.paid{
+
+background:#e8f7f1;
+
+color:#047857;
+
+}
+
+.partial{
+
+background:#fff4dc;
+
+color:#b45309;
+
+}
+
+.due{
+
+background:#feecec;
+
+color:#b91c1c;
+
+}
+
+.active{
+
+background:#e8f0ff;
+
+color:#1d4ed8;
+
+}
+
+/* =========================
+   QUICK ACTIONS
+========================= */
+
+.quick-grid{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:10px;
+
+padding:17px;
+
+}
+
+.quick{
+
+border:
+1px solid #e4eaf2;
+
+background:#fbfdff;
+
+border-radius:13px;
+
+padding:15px;
+
+text-align:left;
+
+transition:.22s;
+
+}
+
+.quick:hover{
+
+transform:
+translateY(-5px);
+
+border-color:#bfd0ff;
+
+box-shadow:
+0 14px 28px
+rgba(37,99,235,.11);
+
+}
+
+.quick b{
+
+display:block;
+
+font-size:12px;
+
+margin-top:7px;
+
+}
+
+.quick span{
+
+display:block;
+
+font-size:10px;
+
+color:#64748b;
+
+margin-top:3px;
+
+}
+
+/* =========================
+   LOW STOCK
+========================= */
+
+.low-list{
+
+padding:
+6px 18px 17px;
+
+}
+
+.low-item{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:12px 0;
+
+border-bottom:
+1px solid #edf1f6;
+
+}
+
+.low-item:last-child{
+
+border:0;
+
+}
+
+.low-item b{
+
+font-size:12px;
+
+}
+
+.low-item small{
+
+display:block;
+
+font-size:10px;
+
+color:#64748b;
+
+margin-top:4px;
+
+}
+
+/* =========================
+   PAGE HEADER
+========================= */
+
+.page-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:flex-end;
+
+gap:15px;
+
+margin-bottom:18px;
+
+}
+
+.page-header h1{
+
+font-size:25px;
+
+}
+
+.page-header p{
+
+font-size:12px;
+
+color:#64748b;
+
+margin-top:5px;
+
+}
+
+.page-actions{
+
+display:flex;
+
+gap:9px;
+
+align-items:center;
+
+}
+
+.input,
+.select,
+.outline-btn,
+.solid-btn{
+
+padding:
+10px 12px;
+
+border:
+1px solid #e2e8f0;
+
+background:white;
+
+border-radius:10px;
+
+font-size:12px;
+
+}
+
+.input{
+
+min-width:230px;
+
+}
+
+.outline-btn{
+
+font-weight:700;
+
+}
+
+.solid-btn{
+
+background:#2563eb;
+
+border-color:#2563eb;
+
+color:white;
+
+font-weight:700;
+
+}
+
+/* =========================
+   PRODUCT CARDS
+========================= */
+
+.cards-3{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:16px;
+
+}
+
+.product-card{
+
+background:
+rgba(255,255,255,.9);
+
+border:
+1px solid #e2e8f0;
+
+border-radius:16px;
+
+padding:17px;
+
+box-shadow:
+0 16px 40px
+rgba(15,23,42,.07);
+
+transition:.23s;
+
+}
+
+.product-card:hover{
+
+transform:
+translateY(-6px);
+
+box-shadow:
+0 22px 45px
+rgba(15,23,42,.12);
+
+border-color:#c7d5eb;
+
+}
+
+.product-top{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:flex-start;
+
+}
+
+.product-icon{
+
+width:45px;
+
+height:45px;
+
+display:grid;
+
+place-items:center;
+
+border-radius:12px;
+
+background:#eef4ff;
+
+font-size:21px;
+
+}
+
+.product-card h3{
+
+font-size:14px;
+
+margin:
+13px 0 4px;
+
+}
+
+.product-card .muted{
+
+font-size:11px;
+
+color:#64748b;
+
+}
+
+.product-price{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:end;
+
+margin-top:15px;
+
+}
+
+.product-price strong{
+
+font-size:18px;
+
+}
+
+/* =========================
+   SUMMARY CARDS
+========================= */
+
+.summary-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:16px;
+
+margin-bottom:16px;
+
+}
+
+.summary{
+
+padding:17px;
+
+background:
+rgba(255,255,255,.9);
+
+border:
+1px solid #e2e8f0;
+
+border-radius:16px;
+
+box-shadow:
+0 16px 40px
+rgba(15,23,42,.07);
+
+transition:.22s;
+
+}
+
+.summary:hover{
+
+transform:
+translateY(-5px);
+
+}
+
+.summary span{
+
+font-size:11px;
+
+color:#64748b;
+
+}
+
+.summary strong{
+
+display:block;
+
+font-size:23px;
+
+margin:8px 0;
+
+}
+
+/* =========================
+   CONTACT CARDS
+========================= */
+
+.contact-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:16px;
+
+}
+
+.contact-card{
+
+background:white;
+
+border:
+1px solid #e2e8f0;
+
+border-radius:16px;
+
+padding:18px;
+
+box-shadow:
+0 16px 40px
+rgba(15,23,42,.07);
+
+transition:.23s;
+
+}
+
+.contact-card:hover{
+
+transform:
+translateY(-6px);
+
+box-shadow:
+0 22px 45px
+rgba(15,23,42,.12);
+
+}
+
+.contact-card h3{
+
+font-size:14px;
+
+margin-bottom:5px;
+
+}
+
+.contact-card .sub{
+
+font-size:10px;
+
+color:#64748b;
+
+margin-bottom:12px;
+
+}
+
+.info-row{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:8px 0;
+
+border-bottom:
+1px solid #edf1f6;
+
+font-size:11px;
+
+}
+
+.info-row:last-child{
+
+border:0;
+
+}
+
+/* =========================
+   EXPENSES
+========================= */
+
+.expense-list{
+
+display:grid;
+
+gap:10px;
+
+}
+
+.expense{
+
+background:white;
+
+border:
+1px solid #e2e8f0;
+
+border-radius:13px;
+
+padding:14px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+transition:.2s;
+
+}
+
+.expense:hover{
+
+transform:
+translateX(5px);
+
+box-shadow:
+0 12px 25px
+rgba(15,23,42,.08);
+
+}
+
+.expense-left{
+
+display:flex;
+
+align-items:center;
+
+gap:11px;
+
+}
+
+.expense-icon{
+
+width:39px;
+
+height:39px;
+
+display:grid;
+
+place-items:center;
+
+border-radius:10px;
+
+background:#f1f5f9;
+
+}
+
+/* =========================
+   REPORTS
+========================= */
+
+.reports-grid{
+
+display:grid;
+
+grid-template-columns:
+1.4fr .9fr;
+
+gap:18px;
+
+}
+
+.chart{
+
+height:280px;
+
+padding:
+20px;
+
+display:flex;
+
+align-items:flex-end;
+
+gap:13px;
+
+}
+
+.bar-wrap{
+
+flex:1;
+
+height:100%;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:flex-end;
+
+align-items:center;
+
+gap:8px;
+
+}
+
+.bar{
+
+width:100%;
+
+max-width:45px;
+
+border-radius:
+9px 9px 4px 4px;
+
+background:
+linear-gradient(
+180deg,
+#60a5fa,
+#2563eb
+);
+
+box-shadow:
+0 10px 22px
+rgba(37,99,235,.18);
+
+transition:.3s;
+
+}
+
+.bar:hover{
+
+transform:
+scaleY(1.06);
+
+}
+
+.bar-label{
+
+font-size:10px;
+
+color:#64748b;
+
+}
+
+/* =========================
+   SETTINGS
+========================= */
+
+.settings-grid{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:16px;
+
+}
+
+.setting{
+
+background:white;
+
+border:
+1px solid #e2e8f0;
+
+border-radius:16px;
+
+padding:18px;
+
+box-shadow:
+0 16px 40px
+rgba(15,23,42,.07);
+
+}
+
+.setting h3{
+
+font-size:14px;
+
+margin-bottom:6px;
+
+}
+
+.setting p{
+
+font-size:11px;
+
+color:#64748b;
+
+margin-bottom:15px;
+
+}
+
+.switch-row{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:11px 0;
+
+border-top:
+1px solid #edf1f6;
+
+font-size:11px;
+
+}
+
+.toggle{
+
+width:42px;
+
+height:24px;
+
+border:0;
+
+border-radius:99px;
+
+background:#cbd5e1;
+
+position:relative;
+
+transition:.2s;
+
+}
+
+.toggle:after{
+
+content:"";
+
+position:absolute;
+
+width:18px;
+
+height:18px;
+
+border-radius:50%;
+
+background:white;
+
+left:3px;
+
+top:3px;
+
+transition:.2s;
+
+box-shadow:
+0 2px 7px
+rgba(0,0,0,.15);
+
+}
+
+.toggle.on{
+
+background:#2563eb;
+
+}
+
+.toggle.on:after{
+
+left:21px;
+
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+
+position:fixed;
+
+right:22px;
+
+bottom:22px;
+
+background:#0f172a;
+
+color:white;
+
+padding:
+12px 15px;
+
+border-radius:12px;
+
+box-shadow:
+0 18px 35px
+rgba(15,23,42,.2);
+
+font-size:12px;
+
+opacity:0;
+
+transform:
+translateY(10px);
+
+pointer-events:none;
+
+transition:.25s;
+
+z-index:100;
+
+}
+
+.toast.show{
+
+opacity:1;
+
+transform:none;
+
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1100px){
+
+.kpis{
+
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+.section-grid,
+.reports-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.cards-3,
+.contact-grid{
+
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:760px){
+
+.sidebar{
+
+transform:
+translateX(-100%);
+
+transition:.25s;
+
+}
+
+.sidebar.open{
+
+transform:none;
+
+}
+
+.main{
+
+margin-left:0;
+
+width:100%;
+
+}
+
+.menu-btn{
+
+display:block;
+
+}
+
+.topbar{
+
+padding:
+0 14px;
+
+}
+
+.content{
+
+padding:15px;
+
+}
+
+.hero{
+
+padding:21px;
+
+align-items:flex-start;
+
+flex-direction:column;
+
+}
+
+.hero h1{
+
+font-size:22px;
+
+}
+
+.hero-actions{
+
+width:100%;
+
+}
+
+.hero-actions button{
+
+flex:1;
+
+}
+
+.kpis{
+
+grid-template-columns:
+1fr 1fr;
+
+gap:10px;
+
+}
+
+.kpi{
+
+padding:14px;
+
+}
+
+.kpi strong{
+
+font-size:20px;
+
+}
+
+.page-header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.page-actions{
+
+width:100%;
+
+}
+
+.input{
+
+min-width:0;
+
+flex:1;
+
+width:100%;
+
+}
+
+.cards-3,
+.contact-grid,
+.summary-grid,
+.settings-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
 </style>
+
 </head>
+
+
 <body>
+
+<div class="bg-grid"></div>
+
+<div class="orb one"></div>
+<div class="orb two"></div>
+<div class="orb three"></div>
+
+
 <div class="app">
+
+
+<!-- =======================
+SIDEBAR
+======================= -->
+
 <aside class="sidebar" id="sidebar">
-  <div class="brand"><div class="brand-icon">⚡</div><div><h1>ElectroMart</h1><small>Electrical Store</small></div></div>
-  <nav>
-    <button class="nav active">🏠 Dashboard</button>
-    <button class="nav">📦 Products</button>
-    <button class="nav">🧾 Sales</button>
-    <button class="nav">👥 Customers</button>
-    <button class="nav">🚚 Suppliers</button>
-    <button class="nav">💸 Expenses</button>
-    <button class="nav">📊 Reports</button>
-    <button class="nav">⚙️ Settings</button>
-  </nav>
+
+<div class="brand">
+
+<div class="brand-icon">
+⚡
+</div>
+
+<div>
+
+<h1>
+ElectroMart
+</h1>
+
+<small>
+Electrical Store
+</small>
+
+</div>
+
+</div>
+
+
+<div class="nav">
+
+<button class="active"
+data-page="dashboard">
+
+<span class="nav-icon">
+🏠
+</span>
+
+Dashboard
+
+</button>
+
+
+<button
+data-page="products">
+
+<span class="nav-icon">
+📦
+</span>
+
+Products
+
+</button>
+
+
+<button
+data-page="sales">
+
+<span class="nav-icon">
+🧾
+</span>
+
+Sales
+
+</button>
+
+
+<button
+data-page="customers">
+
+<span class="nav-icon">
+👥
+</span>
+
+Customers
+
+</button>
+
+
+<button
+data-page="suppliers">
+
+<span class="nav-icon">
+🚚
+</span>
+
+Suppliers
+
+</button>
+
+
+<button
+data-page="expenses">
+
+<span class="nav-icon">
+💸
+</span>
+
+Expenses
+
+</button>
+
+
+<button
+data-page="reports">
+
+<span class="nav-icon">
+📊
+</span>
+
+Reports
+
+</button>
+
+
+<button
+data-page="settings">
+
+<span class="nav-icon">
+⚙️
+</span>
+
+Settings
+
+</button>
+
+</div>
+
+
+<div class="sidebar-footer">
+
+<b>
+ElectroMart V2
+</b>
+
+<span>
+Frontend demo • Supabase ready
+</span>
+
+</div>
+
 </aside>
+
+
+<!-- =======================
+MAIN
+======================= -->
+
 <main class="main">
+
+
 <header class="topbar">
-  <div style="display:flex;align-items:center;gap:10px"><button class="menu-btn" onclick="toggleMenu()">☰</button><div class="top-title"><h2>Dashboard</h2><span>Store overview & daily operations</span></div></div>
-  <div class="user"><div><b style="font-size:12px">Admin</b><div style="font-size:10px;color:var(--muted)">Store Manager</div></div><div class="avatar">A</div></div>
+
+<div class="top-left">
+
+<button class="menu-btn"
+id="menuBtn">
+
+☰
+
+</button>
+
+
+<div class="title">
+
+<h2 id="topTitle">
+Dashboard
+</h2>
+
+<p id="topSub">
+Store overview & daily operations
+</p>
+
+</div>
+
+</div>
+
+
+<div class="user">
+
+<div class="user-meta">
+
+<b>
+Admin
+</b>
+
+<span>
+Store Manager
+</span>
+
+</div>
+
+<div class="avatar">
+A
+</div>
+
+</div>
+
 </header>
+
+
 <section class="content">
-  <div class="hero">
-    <div><h3>Good morning 👋</h3><p>Track sales, stock and store performance from one place.</p></div>
-    <div class="hero-actions"><button class="btn secondary" onclick="alert('Purchase module coming in V2')">＋ Purchase</button><button class="btn primary" onclick="alert('New sale module coming in V2')">＋ New Sale</button></div>
-  </div>
 
-  <div class="kpis">
-    <div class="kpi"><div class="kpi-top"><span class="kpi-label">Today's Sales</span><span class="kpi-icon">💰</span></div><strong>₹24,850</strong><small>↑ 12.4% vs yesterday</small></div>
-    <div class="kpi"><div class="kpi-top"><span class="kpi-label">Stock Value</span><span class="kpi-icon">📦</span></div><strong>₹8.42L</strong><small>126 products</small></div>
-    <div class="kpi"><div class="kpi-top"><span class="kpi-label">Receivables</span><span class="kpi-icon">👤</span></div><strong>₹42,650</strong><small class="warn">18 customers due</small></div>
-    <div class="kpi"><div class="kpi-top"><span class="kpi-label">Low Stock</span><span class="kpi-icon">⚠️</span></div><strong>09</strong><small class="warn">Needs attention</small></div>
-  </div>
 
-  <div class="grid">
-    <div class="card">
-      <div class="card-head"><h4>Recent Sales</h4><a href="#" onclick="return false">View all</a></div>
-      <div class="table-wrap"><table class="table"><thead><tr><th>Invoice</th><th>Customer</th><th>Items</th><th>Amount</th><th>Status</th></tr></thead>
-      <tbody>
-      <tr><td><b>#INV-1024</b></td><td>Ramesh Electricals</td><td>12</td><td>₹7,840</td><td><span class="tag success">PAID</span></td></tr>
-      <tr><td><b>#INV-1023</b></td><td>Sri Lakshmi Works</td><td>06</td><td>₹4,280</td><td><span class="tag warn">PARTIAL</span></td></tr>
-      <tr><td><b>#INV-1022</b></td><td>Venkatesh</td><td>09</td><td>₹3,950</td><td><span class="tag success">PAID</span></td></tr>
-      <tr><td><b>#INV-1021</b></td><td>RK Contractors</td><td>16</td><td>₹8,780</td><td><span class="tag danger">DUE</span></td></tr>
-      </tbody></table></div>
-    </div>
-    <div class="card">
-      <div class="card-head"><h4>Quick Actions</h4></div>
-      <div class="quick">
-        <button onclick="alert('Add Product form in V2')">📦 <b>Add Product</b><span>Create new inventory item</span></button>
-        <button onclick="alert('New Customer form in V2')">👥 <b>Add Customer</b><span>Create customer record</span></button>
-        <button onclick="alert('Supplier form in V2')">🚚 <b>Add Supplier</b><span>Register a supplier</span></button>
-        <button onclick="alert('Reports module in V2')">📊 <b>View Reports</b><span>Sales & profit insights</span></button>
-      </div>
-    </div>
-  </div>
+<!-- =======================
+DASHBOARD
+======================= -->
 
-  <div class="card" style="margin-top:18px">
-    <div class="card-head"><h4>Low Stock Items</h4><a href="#" onclick="return false">Manage inventory</a></div>
-    <div class="low-list">
-      <div class="low"><div><div class="name">Finolex 1.5 sq.mm Wire</div><small>Wires & Cables · Current 18 m · Min 50 m</small></div><span class="tag danger">LOW</span></div>
-      <div class="low"><div><div class="name">Havells 10A Modular Socket</div><small>Switches & Sockets · Current 07 · Min 20</small></div><span class="tag danger">LOW</span></div>
-      <div class="low"><div><div class="name">Philips 9W LED Bulb</div><small>Lighting · Current 14 · Min 25</small></div><span class="tag warn">REORDER</span></div>
-    </div>
-  </div>
+<div class="page show"
+id="page-dashboard">
+
+
+<div class="hero">
+
+<div>
+
+<h1>
+Good morning 👋
+</h1>
+
+<p>
+Track sales, stock and store performance from one place.
+</p>
+
+</div>
+
+
+<div class="hero-actions">
+
+<button
+class="btn btn-dark"
+onclick="notify('Purchase module will connect to inventory in V3')">
+
+＋ Purchase
+
+</button>
+
+
+<button
+class="btn btn-primary"
+onclick="go('sales')">
+
+＋ New Sale
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="kpis">
+
+
+<div class="kpi">
+
+<div class="kpi-top">
+
+<span class="kpi-label">
+Today's Sales
+</span>
+
+<span class="kpi-icon">
+💰
+</span>
+
+</div>
+
+<strong>
+₹24,850
+</strong>
+
+<small class="green">
+↑ 12.4% vs yesterday
+</small>
+
+</div>
+
+
+<div class="kpi">
+
+<div class="kpi-top">
+
+<span class="kpi-label">
+Stock Value
+</span>
+
+<span class="kpi-icon">
+📦
+</span>
+
+</div>
+
+<strong>
+₹8.42L
+</strong>
+
+<small class="green">
+126 products
+</small>
+
+</div>
+
+
+<div class="kpi">
+
+<div class="kpi-top">
+
+<span class="kpi-label">
+Receivables
+</span>
+
+<span class="kpi-icon">
+👤
+</span>
+
+</div>
+
+<strong>
+₹42,650
+</strong>
+
+<small class="orange">
+18 customers due
+</small>
+
+</div>
+
+
+<div class="kpi">
+
+<div class="kpi-top">
+
+<span class="kpi-label">
+Low Stock
+</span>
+
+<span class="kpi-icon">
+⚠️
+</span>
+
+</div>
+
+<strong>
+09
+</strong>
+
+<small class="orange">
+Needs attention
+</small>
+
+</div>
+
+</div>
+
+
+<div class="section-grid">
+
+
+<div class="card">
+
+<div class="card-head">
+
+<h3>
+Recent Sales
+</h3>
+
+<a href="#"
+onclick="go('sales');return false">
+
+View all
+
+</a>
+
+</div>
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+Invoice
+</th>
+
+<th>
+Customer
+</th>
+
+<th>
+Items
+</th>
+
+<th>
+Amount
+</th>
+
+<th>
+Status
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+<tr>
+
+<td>
+<b>#INV-1024</b>
+</td>
+
+<td>
+Ramesh Electricals
+</td>
+
+<td>
+12
+</td>
+
+<td>
+₹7,840
+</td>
+
+<td>
+<span class="status paid">
+PAID
+</span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+<b>#INV-1023</b>
+</td>
+
+<td>
+Sri Lakshmi Works
+</td>
+
+<td>
+06
+</td>
+
+<td>
+₹4,280
+</td>
+
+<td>
+<span class="status partial">
+PARTIAL
+</span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+<b>#INV-1022</b>
+</td>
+
+<td>
+Venkatesh
+</td>
+
+<td>
+09
+</td>
+
+<td>
+₹3,950
+</td>
+
+<td>
+<span class="status paid">
+PAID
+</span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+<b>#INV-1021</b>
+</td>
+
+<td>
+RK Contractors
+</td>
+
+<td>
+16
+</td>
+
+<td>
+₹8,780
+</td>
+
+<td>
+<span class="status due">
+DUE
+</span>
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-head">
+
+<h3>
+Quick Actions
+</h3>
+
+</div>
+
+
+<div class="quick-grid">
+
+
+<button
+class="quick"
+onclick="go('products')">
+
+📦
+
+<b>
+Add Product
+</b>
+
+<span>
+Create inventory item
+</span>
+
+</button>
+
+
+<button
+class="quick"
+onclick="go('customers')">
+
+👥
+
+<b>
+Add Customer
+</b>
+
+<span>
+Create customer record
+</span>
+
+</button>
+
+
+<button
+class="quick"
+onclick="go('suppliers')">
+
+🚚
+
+<b>
+Add Supplier
+</b>
+
+<span>
+Register supplier
+</span>
+
+</button>
+
+
+<button
+class="quick"
+onclick="go('reports')">
+
+📊
+
+<b>
+View Reports
+</b>
+
+<span>
+Sales & profit insights
+</span>
+
+</button>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card"
+style="margin-top:18px">
+
+<div class="card-head">
+
+<h3>
+Low Stock Items
+</h3>
+
+<a href="#"
+onclick="go('products');return false">
+
+Manage inventory
+
+</a>
+
+</div>
+
+
+<div class="low-list">
+
+
+<div class="low-item">
+
+<div>
+
+<b>
+Finolex 1.5 sq.mm Wire
+</b>
+
+<small>
+Wires & Cables · 18 m left · Minimum 50 m
+</small>
+
+</div>
+
+<span class="status due">
+LOW
+</span>
+
+</div>
+
+
+<div class="low-item">
+
+<div>
+
+<b>
+Havells 10A Modular Socket
+</b>
+
+<small>
+Switches & Sockets · 07 pcs left · Minimum 20
+</small>
+
+</div>
+
+<span class="status due">
+LOW
+</span>
+
+</div>
+
+
+<div class="low-item">
+
+<div>
+
+<b>
+Philips 9W LED Bulb
+</b>
+
+<small>
+Lighting · 14 pcs left · Minimum 25
+</small>
+
+</div>
+
+<span class="status partial">
+REORDER
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =======================
+PRODUCTS
+======================= -->
+
+<div class="page"
+id="page-products">
+
+
+<div class="page-header">
+
+<div>
+
+<h1>
+Products & Inventory
+</h1>
+
+<p>
+Manage electrical goods, pricing and stock.
+</p>
+
+</div>
+
+
+<div class="page-actions">
+
+<input
+class="input"
+id="productSearch"
+placeholder="Search products...">
+
+
+<button
+class="solid-btn"
+onclick="notify('Add Product form will be connected to Supabase')">
+
+＋ Add Product
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="cards-3"
+id="productsGrid">
+
+
+<div class="product-card"
+data-name="Finolex 1.5 sq.mm Wire">
+
+<div class="product-top">
+
+<div class="product-icon">
+🔌
+</div>
+
+<span class="status due">
+LOW
+</span>
+
+</div>
+
+<h3>
+Finolex 1.5 sq.mm Wire
+</h3>
+
+<div class="muted">
+Wires & Cables
+</div>
+
+<div class="product-price">
+
+<div>
+
+<small class="muted">
+Selling
+</small>
+
+<br>
+
+<strong>
+₹1,185
+</strong>
+
+</div>
+
+<span class="status due">
+18 m
+</span>
+
+</div>
+
+</div>
+
+
+<div class="product-card"
+data-name="Havells 10A Modular Socket">
+
+<div class="product-top">
+
+<div class="product-icon">
+🔲
+</div>
+
+<span class="status active">
+IN STOCK
+</span>
+
+</div>
+
+<h3>
+Havells 10A Modular Socket
+</h3>
+
+<div class="muted">
+Switches & Sockets
+</div>
+
+<div class="product-price">
+
+<div>
+
+<small class="muted">
+Selling
+</small>
+
+<br>
+
+<strong>
+₹165
+</strong>
+
+</div>
+
+<span class="status active">
+47 pcs
+</span>
+
+</div>
+
+</div>
+
+
+<div class="product-card"
+data-name="Philips 9W LED Bulb">
+
+<div class="product-top">
+
+<div class="product-icon">
+💡
+</div>
+
+<span class="status partial">
+REORDER
+</span>
+
+</div>
+
+<h3>
+Philips 9W LED Bulb
+</h3>
+
+<div class="muted">
+Lighting
+</div>
+
+<div class="product-price">
+
+<div>
+
+<small class="muted">
+Selling
+</small>
+
+<br>
+
+<strong>
+₹125
+</strong>
+
+</div>
+
+<span class="status partial">
+14 pcs
+</span>
+
+</div>
+
+</div>
+
+
+<div class="product-card"
+data-name="Anchor 16A Switch">
+
+<div class="product-top">
+
+<div class="product-icon">
+🔘
+</div>
+
+<span class="status active">
+IN STOCK
+</span>
+
+</div>
+
+<h3>
+Anchor 16A Switch
+</h3>
+
+<div class="muted">
+Switches & Sockets
+</div>
+
+<div class="product-price">
+
+<div>
+
+<small class="muted">
+Selling
+</small>
+
+<br>
+
+<strong>
+₹92
+</strong>
+
+</div>
+
+<span class="status active">
+82 pcs
+</span>
+
+</div>
+
+</div>
+
+
+<div class="product-card"
+data-name="Polycab 2.5 sq.mm Wire">
+
+<div class="product-top">
+
+<div class="product-icon">
+🔗
+</div>
+
+<span class="status active">
+IN STOCK
+</span>
+
+</div>
+
+<h3>
+Polycab 2.5 sq.mm Wire
+</h3>
+
+<div class="muted">
+Wires & Cables
+</div>
+
+<div class="product-price">
+
+<div>
+
+<small class="muted">
+Selling
+</small>
+
+<br>
+
+<strong>
+₹2,060
+</strong>
+
+</div>
+
+<span class="status active">
+36 m
+</span>
+
+</div>
+
+</div>
+
+
+<div class="product-card"
+data-name="Havells Ceiling Fan">
+
+<div class="product-top">
+
+<div class="product-icon">
+🌀
+</div>
+
+<span class="status active">
+IN STOCK
+</span>
+
+</div>
+
+<h3>
+Havells Ceiling Fan 1200mm
+</h3>
+
+<div class="muted">
+Fans & Appliances
+</div>
+
+<div class="product-price">
+
+<div>
+
+<small class="muted">
+Selling
+</small>
+
+<br>
+
+<strong>
+₹2,890
+</strong>
+
+</div>
+
+<span class="status active">
+12 pcs
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =======================
+SALES
+======================= -->
+
+<div class="page"
+id="page-sales">
+
+
+<div class="page-header">
+
+<div>
+
+<h1>
+Sales & Invoices
+</h1>
+
+<p>
+Invoices, payments and outstanding balances.
+</p>
+
+</div>
+
+
+<div class="page-actions">
+
+<button
+class="outline-btn"
+onclick="notify('Invoice export available in database version')">
+
+Export
+
+</button>
+
+
+<button
+class="solid-btn"
+onclick="notify('New Sale form will be connected to stock')">
+
+＋ New Sale
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="summary-grid">
+
+
+<div class="summary">
+
+<span>
+Today's Sales
+</span>
+
+<strong>
+₹24,850
+</strong>
+
+<span class="green">
+↑ 12.4%
+</span>
+
+</div>
+
+
+<div class="summary">
+
+<span>
+Invoices Today
+</span>
+
+<strong>
+18
+</strong>
+
+<span class="green">
+4 paid in full
+</span>
+
+</div>
+
+
+<div class="summary">
+
+<span>
+Outstanding
+</span>
+
+<strong>
+₹42,650
+</strong>
+
+<span class="orange">
+18 customers due
+</span>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-head">
+
+<h3>
+Invoice Register
+</h3>
+
+</div>
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+Invoice
+</th>
+
+<th>
+Date
+</th>
+
+<th>
+Customer
+</th>
+
+<th>
+Total
+</th>
+
+<th>
+Paid
+</th>
+
+<th>
+Balance
+</th>
+
+<th>
+Status
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+<tr>
+
+<td>
+<b>#INV-1024</b>
+</td>
+
+<td>
+07-Oct-2026
+</td>
+
+<td>
+Ramesh Electricals
+</td>
+
+<td>
+₹7,840
+</td>
+
+<td>
+₹7,840
+</td>
+
+<td>
+₹0
+</td>
+
+<td>
+<span class="status paid">
+PAID
+</span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+<b>#INV-1023</b>
+</td>
+
+<td>
+07-Oct-2026
+</td>
+
+<td>
+Sri Lakshmi Works
+</td>
+
+<td>
+₹4,280
+</td>
+
+<td>
+₹3,000
+</td>
+
+<td>
+₹1,280
+</td>
+
+<td>
+<span class="status partial">
+PARTIAL
+</span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+<b>#INV-1022</b>
+</td>
+
+<td>
+07-Oct-2026
+</td>
+
+<td>
+Venkatesh
+</td>
+
+<td>
+₹3,950
+</td>
+
+<td>
+₹3,950
+</td>
+
+<td>
+₹0
+</td>
+
+<td>
+<span class="status paid">
+PAID
+</span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+<b>#INV-1021</b>
+</td>
+
+<td>
+06-Oct-2026
+</td>
+
+<td>
+RK Contractors
+</td>
+
+<td>
+₹8,780
+</td>
+
+<td>
+₹4,000
+</td>
+
+<td>
+₹4,780
+</td>
+
+<td>
+<span class="status due">
+DUE
+</span>
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =======================
+CUSTOMERS
+======================= -->
+
+<div class="page"
+id="page-customers">
+
+
+<div class="page-header">
+
+<div>
+
+<h1>
+Customers
+</h1>
+
+<p>
+Customers, balances and purchase history.
+</p>
+
+</div>
+
+<div class="page-actions">
+
+<input
+class="input"
+placeholder="Search customers...">
+
+<button
+class="solid-btn"
+onclick="notify('Customer creation will be added with Supabase')">
+
+＋ Add Customer
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="contact-grid">
+
+
+<div class="contact-card">
+
+<h3>
+Ramesh Electricals
+</h3>
+
+<div class="sub">
+Retail Customer · Hyderabad
+</div>
+
+<div class="info-row">
+<span>Purchases</span>
+<b>₹1,48,520</b>
+</div>
+
+<div class="info-row">
+<span>Paid</span>
+<b class="green">
+₹1,42,520
+</b>
+</div>
+
+<div class="info-row">
+<span>Outstanding</span>
+<b class="red">
+₹6,000
+</b>
+</div>
+
+</div>
+
+
+<div class="contact-card">
+
+<h3>
+Sri Lakshmi Works
+</h3>
+
+<div class="sub">
+Contractor · Hyderabad
+</div>
+
+<div class="info-row">
+<span>Purchases</span>
+<b>₹86,340</b>
+</div>
+
+<div class="info-row">
+<span>Paid</span>
+<b class="green">
+₹80,000
+</b>
+</div>
+
+<div class="info-row">
+<span>Outstanding</span>
+<b class="red">
+₹6,340
+</b>
+</div>
+
+</div>
+
+
+<div class="contact-card">
+
+<h3>
+RK Contractors
+</h3>
+
+<div class="sub">
+Contractor · Secunderabad
+</div>
+
+<div class="info-row">
+<span>Purchases</span>
+<b>₹2,14,850</b>
+</div>
+
+<div class="info-row">
+<span>Paid</span>
+<b class="green">
+₹1,90,000
+</b>
+</div>
+
+<div class="info-row">
+<span>Outstanding</span>
+<b class="red">
+₹24,850
+</b>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =======================
+SUPPLIERS
+======================= -->
+
+<div class="page"
+id="page-suppliers">
+
+
+<div class="page-header">
+
+<div>
+
+<h1>
+Suppliers
+</h1>
+
+<p>
+Supplier purchases and payable balances.
+</p>
+
+</div>
+
+
+<button
+class="solid-btn"
+onclick="notify('Supplier creation will be added with Supabase')">
+
+＋ Add Supplier
+
+</button>
+
+</div>
+
+
+<div class="contact-grid">
+
+
+<div class="contact-card">
+
+<h3>
+Polycab Distributors
+</h3>
+
+<div class="sub">
+Wires & Cables
+</div>
+
+<div class="info-row">
+<span>Purchases</span>
+<b>₹4,82,000</b>
+</div>
+
+<div class="info-row">
+<span>Paid</span>
+<b class="green">
+₹4,50,000
+</b>
+</div>
+
+<div class="info-row">
+<span>Payable</span>
+<b class="red">
+₹32,000
+</b>
+</div>
+
+</div>
+
+
+<div class="contact-card">
+
+<h3>
+Havells Wholesale
+</h3>
+
+<div class="sub">
+Switches · Fans · Lighting
+</div>
+
+<div class="info-row">
+<span>Purchases</span>
+<b>₹3,64,500</b>
+</div>
+
+<div class="info-row">
+<span>Paid</span>
+<b class="green">
+₹3,20,500
+</b>
+</div>
+
+<div class="info-row">
+<span>Payable</span>
+<b class="red">
+₹44,000
+</b>
+</div>
+
+</div>
+
+
+<div class="contact-card">
+
+<h3>
+Philips Electricals
+</h3>
+
+<div class="sub">
+Lighting
+</div>
+
+<div class="info-row">
+<span>Purchases</span>
+<b>₹1,98,400</b>
+</div>
+
+<div class="info-row">
+<span>Paid</span>
+<b class="green">
+₹1,98,400
+</b>
+</div>
+
+<div class="info-row">
+<span>Payable</span>
+<b class="green">
+₹0
+</b>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =======================
+EXPENSES
+======================= -->
+
+<div class="page"
+id="page-expenses">
+
+
+<div class="page-header">
+
+<div>
+
+<h1>
+Expenses
+</h1>
+
+<p>
+Track monthly operating expenses.
+</p>
+
+</div>
+
+
+<button
+class="solid-btn"
+onclick="notify('Expense entry form will be connected to Supabase')">
+
+＋ Add Expense
+
+</button>
+
+</div>
+
+
+<div class="summary-grid">
+
+
+<div class="summary">
+
+<span>
+This Month
+</span>
+
+<strong>
+₹38,450
+</strong>
+
+<span class="orange">
+Operating expenses
+</span>
+
+</div>
+
+
+<div class="summary">
+
+<span>
+Largest Expense
+</span>
+
+<strong>
+₹18,000
+</strong>
+
+<span>
+Shop Rent
+</span>
+
+</div>
+
+
+<div class="summary">
+
+<span>
+vs Last Month
+</span>
+
+<strong>
+-6.8%
+</strong>
+
+<span class="green">
+Lower spending
+</span>
+
+</div>
+
+</div>
+
+
+<div class="expense-list">
+
+
+<div class="expense">
+
+<div class="expense-left">
+
+<div class="expense-icon">
+🏪
+</div>
+
+<div>
+
+<b>
+Shop Rent
+</b>
+
+<small class="muted">
+05-Oct-2026 · Monthly
+</small>
+
+</div>
+
+</div>
+
+<b>
+₹18,000
+</b>
+
+</div>
+
+
+<div class="expense">
+
+<div class="expense-left">
+
+<div class="expense-icon">
+💡
+</div>
+
+<div>
+
+<b>
+Electricity Bill
+</b>
+
+<small class="muted">
+04-Oct-2026 · Utilities
+</small>
+
+</div>
+
+</div>
+
+<b>
+₹6,840
+</b>
+
+</div>
+
+
+<div class="expense">
+
+<div class="expense-left">
+
+<div class="expense-icon">
+🚚
+</div>
+
+<div>
+
+<b>
+Transport
+</b>
+
+<small class="muted">
+03-Oct-2026 · Delivery
+</small>
+
+</div>
+
+</div>
+
+<b>
+₹4,500
+</b>
+
+</div>
+
+
+<div class="expense">
+
+<div class="expense-left">
+
+<div class="expense-icon">
+👨‍🔧
+</div>
+
+<div>
+
+<b>
+Staff Salary
+</b>
+
+<small class="muted">
+01-Oct-2026 · Payroll
+</small>
+
+</div>
+
+</div>
+
+<b>
+₹7,500
+</b>
+
+</div>
+
+
+<div class="expense">
+
+<div class="expense-left">
+
+<div class="expense-icon">
+📦
+</div>
+
+<div>
+
+<b>
+Miscellaneous
+</b>
+
+<small class="muted">
+01-Oct-2026 · Other
+</small>
+
+</div>
+
+</div>
+
+<b>
+₹1,610
+</b>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- =======================
+REPORTS
+======================= -->
+
+<div class="page"
+id="page-reports">
+
+
+<div class="page-header">
+
+<div>
+
+<h1>
+Reports & Analytics
+</h1>
+
+<p>
+Sales, profit and business performance.
+</p>
+
+</div>
+
+
+<div class="page-actions">
+
+<select class="select">
+
+<option>
+Last 7 days
+</option>
+
+<option>
+This month
+</option>
+
+<option>
+This year
+</option>
+
+</select>
+
+
+<button
+class="outline-btn"
+onclick="notify('Report export will be added in V3')">
+
+Export
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="summary-grid">
+
+
+<div class="summary">
+
+<span>
+Gross Sales
+</span>
+
+<strong>
+₹6.84L
+</strong>
+
+<span class="green">
+↑ 9.3%
+</span>
+
+</div>
+
+
+<div class="summary">
+
+<span>
+Gross Profit
+</span>
+
+<strong>
+₹1.42L
+</strong>
+
+<span class="green">
+20.8% Margin
+</span>
+
+</div>
+
+
+<div class="summary">
+
+<span>
+Purchases
+</span>
+
+<strong>
+₹4.76L
+</strong>
+
+<span>
+63 entries
+</span>
+
+</div>
+
+</div>
+
+
+<div class="reports-grid">
+
+
+<div class="card">
+
+<div class="card-head">
+
+<h3>
+Weekly Sales Trend
+</h3>
+
+<span class="muted">
+Demo Data
+</span>
+
+</div>
+
+
+<div class="chart">
+
+
+<div class="bar-wrap">
+<span>18K</span>
+<div class="bar"
+style="height:48%">
+</div>
+<div class="bar-label">
+Mon
+</div>
+</div>
+
+
+<div class="bar-wrap">
+<span>24K</span>
+<div class="bar"
+style="height:65%">
+</div>
+<div class="bar-label">
+Tue
+</div>
+</div>
+
+
+<div class="bar-wrap">
+<span>21K</span>
+<div class="bar"
+style="height:56%">
+</div>
+<div class="bar-label">
+Wed
+</div>
+</div>
+
+
+<div class="bar-wrap">
+<span>28K</span>
+<div class="bar"
+style="height:75%">
+</div>
+<div class="bar-label">
+Thu
+</div>
+</div>
+
+
+<div class="bar-wrap">
+<span>25K</span>
+<div class="bar"
+style="height:67%">
+</div>
+<div class="bar-label">
+Fri
+</div>
+</div>
+
+
+<div class="bar-wrap">
+<span>31K</span>
+<div class="bar"
+style="height:85%">
+</div>
+<div class="bar-label">
+Sat
+</div>
+</div>
+
+
+<div class="bar-wrap">
+<span>25K</span>
+<div class="bar"
+style="height:67%">
+</div>
+<div class="bar-label">
+Sun
+</div>
+</div>
+
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-head">
+
+<h3>
+Top Categories
+</h3>
+
+</div>
+
+
+<div class="low-list">
+
+
+<div class="low-item">
+
+<div>
+
+<b>
+Wires & Cables
+</b>
+
+<small>
+38% of sales
+</small>
+
+</div>
+
+<b>
+₹2.60L
+</b>
+
+</div>
+
+
+<div class="low-item">
+
+<div>
+
+<b>
+Lighting
+</b>
+
+<small>
+24% of sales
+</small>
+
+</div>
+
+<b>
+₹1.64L
+</b>
+
+</div>
+
+
+<div class="low-item">
+
+<div>
+
+<b>
+Switches & Sockets
+</b>
+
+<small>
+20% of sales
+</small>
+
+</div>
+
+<b>
+₹1.37L
+</b>
+
+</div>
+
+
+<div class="low-item">
+
+<div>
+
+<b>
+Fans & Appliances
+</b>
+
+<small>
+18% of sales
+</small>
+
+</div>
+
+<b>
+₹1.23L
+</b>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =======================
+SETTINGS
+======================= -->
+
+<div class="page"
+id="page-settings">
+
+
+<div class="page-header">
+
+<div>
+
+<h1>
+Settings
+</h1>
+
+<p>
+Store preferences and application settings.
+</p>
+
+</div>
+
+
+<button
+class="solid-btn"
+onclick="notify('Settings saved successfully')">
+
+Save Changes
+
+</button>
+
+</div>
+
+
+<div class="settings-grid">
+
+
+<div class="setting">
+
+<h3>
+Store Profile
+</h3>
+
+<p>
+Information displayed on invoices.
+</p>
+
+
+<input
+class="input"
+style="width:100%;margin-bottom:10px"
+value="ElectroMart Electricals">
+
+
+<input
+class="input"
+style="width:100%;margin-bottom:10px"
+value="Hyderabad, Telangana">
+
+
+<input
+class="input"
+style="width:100%"
+value="+91 98765 43210">
+
+</div>
+
+
+<div class="setting">
+
+<h3>
+Notifications
+</h3>
+
+<p>
+Choose business alerts.
+</p>
+
+
+<div class="switch-row">
+
+<span>
+Low stock alerts
+</span>
+
+<button
+class="toggle on"
+onclick="this.classList.toggle('on')">
+</button>
+
+</div>
+
+
+<div class="switch-row">
+
+<span>
+Customer due reminders
+</span>
+
+<button
+class="toggle on"
+onclick="this.classList.toggle('on')">
+</button>
+
+</div>
+
+
+<div class="switch-row">
+
+<span>
+Daily sales summary
+</span>
+
+<button
+class="toggle"
+onclick="this.classList.toggle('on')">
+</button>
+
+</div>
+
+</div>
+
+
+<div class="setting">
+
+<h3>
+Business Preferences
+</h3>
+
+<p>
+Store workflow defaults.
+</p>
+
+
+<div class="switch-row">
+
+<span>
+Barcode workflow
+</span>
+
+<button
+class="toggle on"
+onclick="this.classList.toggle('on')">
+</button>
+
+</div>
+
+
+<div class="switch-row">
+
+<span>
+Track customer credit
+</span>
+
+<button
+class="toggle on"
+onclick="this.classList.toggle('on')">
+</button>
+
+</div>
+
+
+<div class="switch-row">
+
+<span>
+Round invoice totals
+</span>
+
+<button
+class="toggle"
+onclick="this.classList.toggle('on')">
+</button>
+
+</div>
+
+</div>
+
+
+<div class="setting">
+
+<h3>
+Database Integration
+</h3>
+
+<p>
+Current version is frontend demo. Next stage will connect Supabase for persistent data.
+</p>
+
+
+<button
+class="outline-btn"
+onclick="notify('Supabase integration is the next development stage')">
+
+Connect Supabase
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
 </section>
+
 </main>
+
 </div>
-<div class="mobile-nav">
-<button class="active">🏠<span>Home</span></button><button>📦<span>Products</span></button><button>🧾<span>Sales</span></button><button>👥<span>Customers</span></button><button>☰<span>More</span></button>
+
+
+<div
+class="toast"
+id="toast">
 </div>
+
+
 <script>
-function toggleMenu(){document.getElementById('sidebar').classList.toggle('open')}
-document.querySelectorAll('.nav').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));btn.classList.add('active');document.querySelector('.top-title h2').textContent=btn.textContent.replace(/^\\S+\\s/,'');if(innerWidth<=720)document.getElementById('sidebar').classList.remove('open')}))
+
+/* =========================
+   NAVIGATION
+========================= */
+
+const pageTitles={
+
+dashboard:[
+"Dashboard",
+"Store overview & daily operations"
+],
+
+products:[
+"Products",
+"Inventory, pricing & stock levels"
+],
+
+sales:[
+"Sales",
+"Invoices, payments & customer dues"
+],
+
+customers:[
+"Customers",
+"Customer balances & purchase history"
+],
+
+suppliers:[
+"Suppliers",
+"Supplier purchases & payable balances"
+],
+
+expenses:[
+"Expenses",
+"Operating expenses & monthly spending"
+],
+
+reports:[
+"Reports",
+"Sales, profit & business analytics"
+],
+
+settings:[
+"Settings",
+"Store profile & application preferences"
+]
+
+};
+
+
+function go(page){
+
+document
+.querySelectorAll(".page")
+.forEach(
+p=>p.classList.remove("show")
+);
+
+const target=
+document.getElementById(
+"page-"+page
+);
+
+if(target){
+
+target.classList.add("show");
+
+}
+
+document
+.querySelectorAll(".nav button")
+.forEach(button=>{
+
+button.classList.toggle(
+"active",
+button.dataset.page===page
+);
+
+});
+
+const info=
+pageTitles[page];
+
+if(info){
+
+document.getElementById(
+"topTitle"
+).textContent=info[0];
+
+document.getElementById(
+"topSub"
+).textContent=info[1];
+
+}
+
+document
+.getElementById("sidebar")
+.classList.remove("open");
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+/* =========================
+   SIDEBAR BUTTONS
+========================= */
+
+document
+.querySelectorAll(".nav button")
+.forEach(button=>{
+
+button.addEventListener(
+"click",
+()=>go(button.dataset.page)
+);
+
+});
+
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+document
+.getElementById("menuBtn")
+.addEventListener(
+"click",
+()=>{
+
+document
+.getElementById("sidebar")
+.classList.toggle("open");
+
+}
+);
+
+
+/* =========================
+   TOAST
+========================= */
+
+function notify(message){
+
+const toast=
+document.getElementById("toast");
+
+toast.textContent=
+message;
+
+toast.classList.add("show");
+
+clearTimeout(
+window.toastTimer
+);
+
+window.toastTimer=
+setTimeout(
+()=>toast.classList.remove("show"),
+2600
+);
+
+}
+
+
+/* =========================
+   PRODUCT SEARCH
+========================= */
+
+document
+.getElementById("productSearch")
+.addEventListener(
+"input",
+function(){
+
+const term=
+this.value.toLowerCase();
+
+document
+.querySelectorAll(
+"#productsGrid .product-card"
+)
+.forEach(card=>{
+
+const name=
+card.dataset.name.toLowerCase();
+
+card.style.display=
+name.includes(term)
+?""
+:"none";
+
+});
+
+}
+);
+
 </script>
+
 </body>
-</html>'''
-path = "/mnt/data/ElectricalStore_index.html"
-with open(path, "w", encoding="utf-8") as f:
-    f.write(html)
-print(path)
+</html>
