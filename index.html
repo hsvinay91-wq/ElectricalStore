@@ -1,0 +1,101 @@
+html = r'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElectroMart — Electrical Store</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--text:#142033;--muted:#687386;--line:#e7ebf2;--accent:#2563eb;--danger:#dc2626;--warn:#d97706;--success:#059669;--shadow:0 12px 30px rgba(20,32,51,.07)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+.app{display:flex;min-height:100vh}.sidebar{width:250px;background:#101828;color:#fff;padding:22px 16px;position:sticky;top:0;height:100vh}.brand{display:flex;align-items:center;gap:12px;padding:8px 10px 24px}.brand-icon{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#3b82f6,#60a5fa);display:grid;place-items:center;font-size:22px}.brand h1{font-size:18px;margin:0}.brand small{color:#aab4c5;font-size:11px}
+nav{display:grid;gap:6px}.nav{border:0;background:transparent;color:#bdc7d7;text-align:left;padding:12px;border-radius:10px;cursor:pointer;font-size:14px;display:flex;align-items:center;gap:11px}.nav:hover,.nav.active{background:#1d2939;color:#fff}.nav.active{box-shadow:inset 3px 0 0 #60a5fa}
+.main{flex:1;min-width:0}.topbar{height:72px;background:rgba(255,255,255,.92);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:10;backdrop-filter:blur(12px)}.menu-btn{display:none;border:0;background:transparent;font-size:24px}.top-title h2{margin:0;font-size:20px}.top-title span{font-size:12px;color:var(--muted)}.user{display:flex;align-items:center;gap:10px}.avatar{width:36px;height:36px;background:#e8eefc;color:#1d4ed8;border-radius:50%;display:grid;place-items:center;font-weight:700}
+.content{padding:28px}.hero{background:linear-gradient(135deg,#0f172a,#1d4ed8);color:#fff;border-radius:18px;padding:26px;display:flex;justify-content:space-between;align-items:center;gap:20px;box-shadow:var(--shadow)}.hero h3{font-size:25px;margin:0 0 7px}.hero p{margin:0;color:#dbeafe;font-size:13px}.hero-actions{display:flex;gap:10px}.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:600;cursor:pointer}.btn.primary{background:#fff;color:#1d4ed8}.btn.secondary{background:rgba(255,255,255,.13);color:#fff;border:1px solid rgba(255,255,255,.2)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:20px 0}.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}.kpi-top{display:flex;justify-content:space-between;align-items:center}.kpi-label{font-size:12px;color:var(--muted)}.kpi-icon{width:36px;height:36px;border-radius:10px;background:#eef4ff;display:grid;place-items:center}.kpi strong{display:block;font-size:24px;margin-top:9px}.kpi small{color:var(--success);font-size:11px}.kpi small.warn{color:var(--warn)}
+.grid{display:grid;grid-template-columns:1.45fr .9fr;gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}.card-head{padding:17px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.card-head h4{margin:0;font-size:15px}.card-head a{font-size:12px;color:var(--accent);text-decoration:none;font-weight:600}.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:620px}.table th,.table td{padding:13px 16px;border-bottom:1px solid #eef1f5;text-align:left;font-size:12px}.table th{color:var(--muted);font-weight:600;background:#fafbfc}.tag{display:inline-flex;padding:5px 8px;border-radius:999px;font-size:10px;font-weight:700}.tag.success{background:#e9f8f2;color:var(--success)}.tag.warn{background:#fff6e6;color:var(--warn)}.tag.danger{background:#ffeded;color:var(--danger)}
+.quick{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:17px}.quick button{padding:15px 12px;border:1px solid var(--line);background:#fafbfc;border-radius:12px;text-align:left;cursor:pointer}.quick button:hover{border-color:#bfd0ff;background:#f7f9ff}.quick b{display:block;font-size:12px}.quick span{font-size:10px;color:var(--muted)}
+.low-list{padding:5px 17px 16px}.low{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid #eef1f5}.low:last-child{border-bottom:0}.low .name{font-size:12px;font-weight:600}.low small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+.mobile-nav{display:none}
+@media(max-width:1000px){.sidebar{width:220px}.kpis{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
+@media(max-width:720px){.sidebar{display:none;position:fixed;left:0;top:0;z-index:30;width:250px}.sidebar.open{display:block}.menu-btn{display:block}.topbar{padding:0 16px}.content{padding:16px}.hero{padding:20px;align-items:flex-start;flex-direction:column}.hero h3{font-size:21px}.kpis{grid-template-columns:1fr 1fr;gap:10px}.kpi{padding:14px}.kpi strong{font-size:20px}.mobile-nav{position:fixed;display:flex;left:0;right:0;bottom:0;height:62px;background:#fff;border-top:1px solid var(--line);z-index:20;justify-content:space-around}.mobile-nav button{border:0;background:#fff;color:var(--muted);font-size:10px;display:grid;place-items:center;gap:3px}.mobile-nav button.active{color:var(--accent);font-weight:700}.main{padding-bottom:62px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="brand-icon">⚡</div><div><h1>ElectroMart</h1><small>Electrical Store</small></div></div>
+  <nav>
+    <button class="nav active">🏠 Dashboard</button>
+    <button class="nav">📦 Products</button>
+    <button class="nav">🧾 Sales</button>
+    <button class="nav">👥 Customers</button>
+    <button class="nav">🚚 Suppliers</button>
+    <button class="nav">💸 Expenses</button>
+    <button class="nav">📊 Reports</button>
+    <button class="nav">⚙️ Settings</button>
+  </nav>
+</aside>
+<main class="main">
+<header class="topbar">
+  <div style="display:flex;align-items:center;gap:10px"><button class="menu-btn" onclick="toggleMenu()">☰</button><div class="top-title"><h2>Dashboard</h2><span>Store overview & daily operations</span></div></div>
+  <div class="user"><div><b style="font-size:12px">Admin</b><div style="font-size:10px;color:var(--muted)">Store Manager</div></div><div class="avatar">A</div></div>
+</header>
+<section class="content">
+  <div class="hero">
+    <div><h3>Good morning 👋</h3><p>Track sales, stock and store performance from one place.</p></div>
+    <div class="hero-actions"><button class="btn secondary" onclick="alert('Purchase module coming in V2')">＋ Purchase</button><button class="btn primary" onclick="alert('New sale module coming in V2')">＋ New Sale</button></div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="kpi-top"><span class="kpi-label">Today's Sales</span><span class="kpi-icon">💰</span></div><strong>₹24,850</strong><small>↑ 12.4% vs yesterday</small></div>
+    <div class="kpi"><div class="kpi-top"><span class="kpi-label">Stock Value</span><span class="kpi-icon">📦</span></div><strong>₹8.42L</strong><small>126 products</small></div>
+    <div class="kpi"><div class="kpi-top"><span class="kpi-label">Receivables</span><span class="kpi-icon">👤</span></div><strong>₹42,650</strong><small class="warn">18 customers due</small></div>
+    <div class="kpi"><div class="kpi-top"><span class="kpi-label">Low Stock</span><span class="kpi-icon">⚠️</span></div><strong>09</strong><small class="warn">Needs attention</small></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-head"><h4>Recent Sales</h4><a href="#" onclick="return false">View all</a></div>
+      <div class="table-wrap"><table class="table"><thead><tr><th>Invoice</th><th>Customer</th><th>Items</th><th>Amount</th><th>Status</th></tr></thead>
+      <tbody>
+      <tr><td><b>#INV-1024</b></td><td>Ramesh Electricals</td><td>12</td><td>₹7,840</td><td><span class="tag success">PAID</span></td></tr>
+      <tr><td><b>#INV-1023</b></td><td>Sri Lakshmi Works</td><td>06</td><td>₹4,280</td><td><span class="tag warn">PARTIAL</span></td></tr>
+      <tr><td><b>#INV-1022</b></td><td>Venkatesh</td><td>09</td><td>₹3,950</td><td><span class="tag success">PAID</span></td></tr>
+      <tr><td><b>#INV-1021</b></td><td>RK Contractors</td><td>16</td><td>₹8,780</td><td><span class="tag danger">DUE</span></td></tr>
+      </tbody></table></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h4>Quick Actions</h4></div>
+      <div class="quick">
+        <button onclick="alert('Add Product form in V2')">📦 <b>Add Product</b><span>Create new inventory item</span></button>
+        <button onclick="alert('New Customer form in V2')">👥 <b>Add Customer</b><span>Create customer record</span></button>
+        <button onclick="alert('Supplier form in V2')">🚚 <b>Add Supplier</b><span>Register a supplier</span></button>
+        <button onclick="alert('Reports module in V2')">📊 <b>View Reports</b><span>Sales & profit insights</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:18px">
+    <div class="card-head"><h4>Low Stock Items</h4><a href="#" onclick="return false">Manage inventory</a></div>
+    <div class="low-list">
+      <div class="low"><div><div class="name">Finolex 1.5 sq.mm Wire</div><small>Wires & Cables · Current 18 m · Min 50 m</small></div><span class="tag danger">LOW</span></div>
+      <div class="low"><div><div class="name">Havells 10A Modular Socket</div><small>Switches & Sockets · Current 07 · Min 20</small></div><span class="tag danger">LOW</span></div>
+      <div class="low"><div><div class="name">Philips 9W LED Bulb</div><small>Lighting · Current 14 · Min 25</small></div><span class="tag warn">REORDER</span></div>
+    </div>
+  </div>
+</section>
+</main>
+</div>
+<div class="mobile-nav">
+<button class="active">🏠<span>Home</span></button><button>📦<span>Products</span></button><button>🧾<span>Sales</span></button><button>👥<span>Customers</span></button><button>☰<span>More</span></button>
+</div>
+<script>
+function toggleMenu(){document.getElementById('sidebar').classList.toggle('open')}
+document.querySelectorAll('.nav').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));btn.classList.add('active');document.querySelector('.top-title h2').textContent=btn.textContent.replace(/^\\S+\\s/,'');if(innerWidth<=720)document.getElementById('sidebar').classList.remove('open')}))
+</script>
+</body>
+</html>'''
+path = "/mnt/data/ElectricalStore_index.html"
+with open(path, "w", encoding="utf-8") as f:
+    f.write(html)
+print(path)
